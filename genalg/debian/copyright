@@ -1,0 +1,7 @@
+This is the Debian GNU/Linux r-cran-genalg package of genalg.
+
+The package was renamed from its upstream name 'genalg' to 'r-cran-genalg'
+to fit the pattern of CRAN (and non-CRAN) packages for R.
+
+Boot is copyright by E.L. Willighagen and licensed with the GPL.
+

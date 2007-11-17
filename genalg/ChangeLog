@@ -1,0 +1,51 @@
+version 0.1.1
+-------------------------------------
+* now really synchronized docs :(
+
+version 0.1.0
+-------------------------------------
+* synchronized documentation
+
+version 0.0.9
+-------------------------------------
+* clarified the meaning of zeroToOneRatio
+
+version 0.0.8
+-------------------------------------
+* removed redundant 'Depends: R' line in DESCRIPTION
+
+version 0.0.7
+-------------------------------------
+* added two general references about genetic algorithms
+* fixed package name in DESCRIPTION
+
+version 0.0.6
+-------------------------------------
+* fixed counting of mutations in rbga.bin
+* added example of variable selection before LDA for rbga.bin
+* removed unwanted mutation of elite
+* added a default elitism of (about) 20%
+* added tests to make sure that plots for binary chromosomes are not
+  plotted for floats chromosomes, and visa versa
+* added documentation for plot types
+
+version 0.0.5
+-------------------------------------
+* added wavelength selection example using the pls.pcr package
+
+version 0.0.4
+-------------------------------------
+* added more documentation
+* added parameters for evaluation and monitor function names
+
+version 0.0.3
+-------------------------------------
+* fixed version number in DESCRIPTION
+
+version 0.0.2
+-------------------------------------
+* added genalg as alias for rbga
+
+version 0.0.1
+-------------------------------------
+* initial package

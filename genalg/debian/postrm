@@ -1,0 +1,25 @@
+#!/bin/sh
+# 							-*- makefile -*-
+# debian/postrm file for the Debian/GNU Linux r-cran-boot package
+# Copyright 2004 by Dirk Eddelbuettel <edd@debian.org>
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    upgrade|remove|purge)
+	if test -x /usr/bin/R; then
+	    R CMD perl /usr/lib/R/share/perl/build-help.pl --htmllists
+	fi
+        ;;
+    failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        ;;
+esac
+
+
+exit 0
+

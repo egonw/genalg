@@ -1,0 +1,25 @@
+#!/bin/sh
+# 							-*- makefile -*-
+# debian/postinst file for the Debian/GNU Linux r-cran-boot package
+# Copyright 2004 by Dirk Eddelbuettel <edd@debian.org>
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+	if test -x /usr/bin/R; then
+	    R CMD perl /usr/lib/R/share/perl/build-help.pl --htmllists
+	fi
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        ;;
+esac
+
+
+exit 0
+

@@ -1,0 +1,12 @@
+Source: genalg
+Section: math
+Priority: optional
+Maintainer: Egon Willighagen <e.willighagen@science.ru.nl>
+Build-Depends-Indep: debhelper (>> 4.1.0), r-base-dev (>= 2.0.0), cdbs
+Standards-Version: 3.6.1.1
+
+Package: r-cran-genalg
+Architecture: all
+Depends: r-base-core (>= 2.0.0)
+Description: GNU R package for a genetic algorithm.
+

@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+# 							-*- makefile -*-
+# debian/rules file for the Debian/GNU Linux r-cran-boot package
+# Copyright 2004 by Dirk Eddelbuettel <edd@debian.org>
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/langcore.mk
+
+## We need the CRAN (upstream) name 
+cranName	:= $(shell grep Package: DESCRIPTION | cut -f2 -d" ")
+## and we need to build a Debian Policy-conformant lower-case package name
+cranNameLC	:= $(shell echo $(cranName) | tr "[A-Z]" "[a-z]" | tr "." "-" )
+## which we can use to build the package directory 
+package		:= r-cran-$(cranNameLC)
+## which we use for the to-be-installed-in directory
+## nb: recommended packages go in $R_HOME/library, not site-library
+#debRlib	:= $(CURDIR)/debian/$(package)/usr/lib/R/site-library
+debRlib	:= $(CURDIR)/debian/$(package)/usr/lib/R/library
+
+common-install-indep:: R_any_arch
+common-install-arch:: R_any_arch
+
+R_any_arch:
+                ##dh_installdirs		usr/lib/R/site-library
+		dh_installdirs		usr/lib/R/library
+                ## R CMD INSTALL -l $(debRlib) --clean .
+	        mkdir debian/$(cranName)
+	        find . -not -path "./debian*" | cpio -p -m debian/$(cranName)
+	        (cd debian 						&& \
+			R CMD check --no-latex $(cranName)		&& \
+			R CMD INSTALL -l $(debRlib) $(cranName) 	&& \
+			rm -rf $(cranName) 				)
+		rm -vf $(debRlib)/R.css $(debRlib)/$(cranNameLC)/COPYING
