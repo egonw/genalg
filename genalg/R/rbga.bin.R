@@ -4,13 +4,16 @@
 # popSize          = the population size
 # iters            = number of generations
 # mutationChance   = chance that a var in the string gets mutated
-rbga.bin <- function(size=10,
-                     suggestions=NULL,
-                     popSize=200, iters=100, 
-                     mutationChance=NA,
-                     elitism=NA, zeroToOneRatio=10,
-                     monitorFunc=NULL, evalFunc=NULL,
-                     showSettings=FALSE, verbose=FALSE) {
+rbga.bin <- function(
+        suggestions=NULL,
+        popSize=200, iters=100, 
+        mutationChance=NA,
+        elitism=NA,
+        monitorFunc=NULL, evalFunc=NULL,
+        size=10,
+        zeroToOneRatio=10,
+        showSettings=FALSE, verbose=FALSE
+) {
     if (is.null(evalFunc)) {
         stop("A evaluation function must be provided. See the evalFunc parameter.");
     }
@@ -160,7 +163,7 @@ rbga.bin <- function(size=10,
                 if (mutationChance > 0) {
                     if (verbose) cat("  applying mutations... ");
                     mutationCount = 0;
-                    for (object in (elitism+1):popSize) {
+                    for (object in (elitism+1):popSize) { # don't mutate the best
                         for (var in 1:vars) {
                             if (runif(1) < mutationChance) { # ok, do mutation
                                 ## mutate bit
@@ -176,7 +179,6 @@ rbga.bin <- function(size=10,
                             }
                         }
                     }
-                    
                     if (verbose) cat(paste(mutationCount, "mutations applied\n"));
                 }
             }
@@ -192,5 +194,4 @@ rbga.bin <- function(size=10,
 
     return(result);
 }
-
 
