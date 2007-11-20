@@ -1,24 +1,24 @@
-# It optimizes a vector of floats using a genetic algorithm.
+# It optimizes a binary chromosome using a genetic algorithm.
 #
 # string           = string to optimize
 # popSize          = the population size
 # iters            = number of generations
 # mutationChance   = chance that a var in the string gets mutated
-rbga.bin <- function(
+rbga <- function(
         suggestions=NULL,
         popSize=200, iters=100, 
         mutationChance=NA,
         elitism=NA,
         monitorFunc=NULL, evalFunc=NULL,
-        size=10,
-        zeroToOneRatio=10,
+        stringMin=c(),
+        stringMax=c(),
         showSettings=FALSE, verbose=FALSE
 ) {
     if (is.null(evalFunc)) {
         stop("A evaluation function must be provided. See the evalFunc parameter.");
     }
     
-    vars = size;
+    vars = length(stringMin);
     if (is.na(mutationChance)) {
         mutationChance = 1/(vars+1);
     }
@@ -28,6 +28,9 @@ rbga.bin <- function(
     
     # TODO: should do a variaty of sanity checks first
     if (verbose) cat("Testing the sanity of parameters...\n");
+    if (length(stringMin) != length(stringMax)) {
+        stop("The vectors stringMin and stringMax must be of equal length.");
+    }
     if (popSize < 5) {
         stop("The population size must be at least 5.");
     }
@@ -40,7 +43,7 @@ rbga.bin <- function(
     
     if (showSettings) {
         if (verbose) cat("The start conditions:\n");
-        result = list(size=size, suggestions=suggestions,
+        result = list(stringMin=stringMin, stringMax=stringMax, suggestions=suggestions,
                       popSize=popSize, iters=iters,
                       elitism=elitism, mutationChance=mutationChance);
         class(result) = "rbga";
@@ -59,22 +62,18 @@ rbga.bin <- function(
                 population[i,] = suggestions[i,]
             }
             if (verbose) cat("Filling others with random values in the given domains...\n");
-            for (child in (suggestionCount+1):popSize) {
-                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                while (sum(population[child,]) == 0) {
-                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                }
+            for (var in 1:vars) {
+                population[(suggestionCount+1):popSize,var] = stringMin[var] +
+                                   runif(popSize-suggestionCount)*(stringMax[var]-stringMin[var]);
             }
         } else {
             if (verbose) cat("Starting with random values in the given domains...\n");
             # start with an random population
             population = matrix(nrow=popSize, ncol=vars);
             # fill values
-            for (child in 1:popSize) {
-                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                while (sum(population[child,]) == 0) {
-                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                }
+            for (var in 1:vars) {
+                population[,var] = stringMin[var] +
+                                   runif(popSize)*(stringMax[var]-stringMin[var]);
             }
         }
         
@@ -100,7 +99,8 @@ rbga.bin <- function(
             if (!is.null(monitorFunc)) {
                 if (verbose) cat("Sending current state to rgba.monitor()...\n");
                 # report on GA settings
-                result = list(type="binary chromosome", size=size,
+                result = list(type="floats chromosome",
+                              stringMin=stringMin, stringMax=stringMax,
                               popSize=popSize, iter=iter, iters=iters,
                               population=population, elitism=elitism, mutationChance=mutationChance,
                               evaluations=evalVals, best=bestEvals, mean=meanEvals);
@@ -130,8 +130,7 @@ rbga.bin <- function(
                     if (verbose) cat("  applying crossover...\n");
                     for (child in (elitism+1):popSize) {
                         # ok, pick two random parents
-                        parentProb = dnorm(1:popSize, mean=0, sd=(popSize/3))
-                        parentIDs = sample(1:popSize, 2, prob=parentProb)
+                        parentIDs = sample(1:popSize, 2)
                         parents = sortedPopulation[parentIDs,];
                         crossOverPoint = sample(0:vars,1);
                         if (crossOverPoint == 0) {
@@ -144,9 +143,6 @@ rbga.bin <- function(
                             newPopulation[child, ] = 
                                 c(parents[1,][1:crossOverPoint], 
                                   parents[2,][(crossOverPoint+1):vars])
-                            while (sum(newPopulation[child,]) == 0) {
-                                newPopulation[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                            }
                         }
                     }
                 } else { # otherwise nothing to crossover
@@ -162,7 +158,37 @@ rbga.bin <- function(
                 # do mutation
                 if (mutationChance > 0) {
                     if (verbose) cat("  applying mutations... ");
-                    mutationCount = rbga.bin.mutation.random(population[(elitism+1):popSize,], mutationChance);
+                    mutationCount = 0;
+                    for (object in (elitism+1):popSize) { # don't mutate the best
+                        for (var in 1:vars) {
+                            if (runif(1) < mutationChance) { # ok, do mutation
+                                # OPTION 1
+                                # mutate to something random
+                                #mutation = stringMin[var] +
+                                #    runif(1)*(stringMax[var]-stringMin[var]);
+                                
+                                # OPTION 2
+                                # mutate around solution
+                                dempeningFactor = (iters-iter)/iters
+                                direction       = sample(c(-1,1),1)
+                                mutationVal     = stringMax[var]-stringMin[var]*0.67
+                                mutation = population[object,var] + 
+                                           direction*mutationVal*dempeningFactor
+                                # but in domain. if not, then take random
+                                if (mutation < stringMin[var]) 
+                                    mutation = stringMin[var] +
+                                               runif(1)*(stringMax[var]-stringMin[var]);
+                                if (mutation > stringMax[var]) 
+                                    mutation = stringMin[var] +
+                                               runif(1)*(stringMax[var]-stringMin[var]);
+                                
+                                # apply mutation, and delete known evalutation value
+                                population[object,var] = mutation;
+                                evalVals[object] = NA;
+                                mutationCount = mutationCount + 1;
+                            }
+                        }
+                    }
                     if (verbose) cat(paste(mutationCount, "mutations applied\n"));
                 }
             }
@@ -170,7 +196,8 @@ rbga.bin <- function(
     }
 
     # report on GA settings
-    result = list(type="binary chromosome", size=size,
+    result = list(type="floats chromosome", 
+                  stringMin=stringMin, stringMax=stringMax,
                   popSize=popSize, iters=iters, suggestions=suggestions,
                   population=population, elitism=elitism, mutationChance=mutationChance,
                   evaluations=evalVals, best=bestEvals, mean=meanEvals);
