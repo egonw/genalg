@@ -162,7 +162,23 @@ rbga.bin <- function(
                 # do mutation
                 if (mutationChance > 0) {
                     if (verbose) cat("  applying mutations... ");
-                    mutationCount = rbga.bin.mutation.switchbit(population[-(1:elitism),], mutationChange)
+                    mutationCount = 0;
+                    for (object in (elitism+1):popSize) { # don't mutate the best
+                        for (var in 1:vars) {
+                            if (runif(1) < mutationChance) { # ok, do mutation
+                                ## mutate bit
+                                ## OPTION 1: switch bit
+                                #if (population[object,var] == 0) {
+                                #    population[object,var] = 1;
+                                #} else {
+                                #    population[object,var] = 0;
+                                #}
+                                # OPTION 2: sample new bit with zeroToOneRatio change
+                                population[object,var] = sample(c(rep(0,zeroToOneRatio),1), 1);
+                                mutationCount = mutationCount + 1;
+                            }
+                        }
+                    }
                     if (verbose) cat(paste(mutationCount, "mutations applied\n"));
                 }
             }
