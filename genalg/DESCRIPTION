@@ -1,6 +1,6 @@
 Package: genalg
-Version: 0.1.1
-Date: 2005-09-21
+Version: 0.3.0
+Date: 2007-12-04
 Title: R Based Genetic Algorithm
 Author: Egon Willighagen <e.willighagen@science.ru.nl>
 Maintainer: Egon Willighagen <e.willighagen@science.ru.nl>

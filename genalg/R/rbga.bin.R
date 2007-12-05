@@ -44,87 +44,52 @@ rbga.bin <- function(
                       popSize=popSize, iters=iters,
                       elitism=elitism, mutationChance=mutationChance);
         class(result) = "rbga";
-        
+
         cat(summary(result));
     } else {
         if (verbose) cat("Not showing GA settings...\n");
     }
-    
+
     if (vars > 0) {
-        if (!is.null(suggestions)) {
-            if (verbose) cat("Adding suggestions to first population...\n");
-            population = matrix(nrow=popSize, ncol=vars);
-            suggestionCount = dim(suggestions)[1]
-            for (i in 1:suggestionCount) {
-                population[i,] = suggestions[i,]
-            }
-            if (verbose) cat("Filling others with random values in the given domains...\n");
-            for (child in (suggestionCount+1):popSize) {
-                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                while (sum(population[child,]) == 0) {
-                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                }
-            }
-        } else {
-            if (verbose) cat("Starting with random values in the given domains...\n");
-            # start with an random population
-            population = matrix(nrow=popSize, ncol=vars);
-            # fill values
-            for (child in 1:popSize) {
-                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                while (sum(population[child,]) == 0) {
-                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
-                }
-            }
-        }
-        
+        if (verbose) cat("Adding suggestions to first population...\n");
+        population = population(type="binary", size=popSize, bits=vars, initFunc=rbga.bin.initialize.random)
+
         # do iterations
         bestEvals = rep(NA, iters);
         meanEvals = rep(NA, iters);
-        evalVals = rep(NA, popSize);
         for (iter in 1:iters) {
             if (verbose) cat(paste("Starting iteration", iter, "\n"));
 
             # calculate each object
             if (verbose) cat("Calucating evaluation values... ");
-            for (object in 1:popSize) {
-                if (is.na(evalVals[object])) {
-                    evalVals[object] = evalFunc(population[object,]);
-                    if (verbose) cat(".");
-                }
-            }
-            bestEvals[iter] = min(evalVals);
-            meanEvals[iter] = mean(evalVals);
+            evalFunc(population);
+            bestEvals[iter] = min(population@evals);
+            meanEvals[iter] = mean(population@evals);
+            population@generation = iter;
             if (verbose) cat(" done.\n");
-            
+
             if (!is.null(monitorFunc)) {
                 if (verbose) cat("Sending current state to rgba.monitor()...\n");
                 # report on GA settings
-                result = list(type="binary chromosome", size=size,
-                              popSize=popSize, iter=iter, iters=iters,
-                              population=population, elitism=elitism, mutationChance=mutationChance,
-                              evaluations=evalVals, best=bestEvals, mean=meanEvals);
-                class(result) = "rbga";
-                
-                monitorFunc(result);
+                monitorFunc(population);
             }
-            
+
             if (iter < iters) { # ok, must create the next generation
                 if (verbose) cat("Creating next generation...\n");
                 newPopulation = matrix(nrow=popSize, ncol=vars);
                 newEvalVals = rep(NA, popSize);
-                
+
                 if (verbose) cat("  sorting results...\n");
-                sortedEvaluations = sort(evalVals, index=TRUE);
-                sortedPopulation  = matrix(population[sortedEvaluations$ix,], ncol=vars);
-                
+                sortedEvaluations = sort(population@evals, index=TRUE);
+                sortedPopulation  = matrix(population@chromosomes[sortedEvaluations$ix,], ncol=population@bits);
+
                 # save the best
                 if (elitism > 0) {
                     if (verbose) cat("  applying elitism...\n");
                     newPopulation[1:elitism,] = sortedPopulation[1:elitism,];
                     newEvalVals[1:elitism] = sortedEvaluations$x[1:elitism]
                 } # ok, save nothing
-                
+
                 # fill the rest by doing crossover
                 if (vars > 1) {
                     if (verbose) cat("  applying crossover...\n");
@@ -155,10 +120,10 @@ rbga.bin <- function(
                     newPopulation[(elitism+1):popSize,] = 
                         sortedPopulation[sample(1:popSize, popSize-elitism),];
                 }
-                
-                population = newPopulation;
-                evalVals   = newEvalVals;
-                
+
+                population@chromosomes = newPopulation;
+                population@evals = newEvalVals;
+
                 # do mutation
                 if (mutationChance > 0) {
                     if (verbose) cat("  applying mutations... ");

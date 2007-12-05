@@ -11,14 +11,14 @@ setClass("gaOptimization",
   ),
   prototype(
     population = NA,
-    iterations = 100,
-    elitism = 10,
-    bestEvals = rep(NA, 100),
-    meanEvals = rep(NA, 100)
+    iterations = 0,
+    elitism = 0,
+    bestEvals = c(),
+    meanEvals = c()
   )
 )
 
-gaOptimization <- function(population=NA, iterations=100, elitism=10) {
+gaOptimization <- function(population=NA, iterations=NA, elitism=NA) {
     if (!(type %in% c("binary", "float", "integer"))) {
         stop("The type must be one of: binary, float, integer");
     }
