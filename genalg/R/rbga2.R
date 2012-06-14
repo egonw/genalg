@@ -13,8 +13,6 @@
 # 8779f033359e4ca5a9bf763083475a74 Fehler hatte weitreichende Folgen
 # 1df67b3102d846f6b8ae02b0e5f63454 2 bugs solved: berechnung der mutation und wenn length( suggestions) == popSize
 
-# mithilfe der genalg library eine matrix invertieren
-
 rbga2= function (stringMin = c(), stringMax = c(), suggestions = NULL, 
     popSize = 200, iters = 100, mutationChance = NA, elitism = NA, 
     monitorFunc = NULL, evalFunc = NULL, showSettings = FALSE, 
