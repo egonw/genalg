@@ -1,4 +1,4 @@
-rbga.bin.initialize.random <- function(size=0, bits=0) {
+rbga.bin.initialize.random <- function(size=0, bits=0, zeroToOneRatio=NA) {
     # one bit per chromosome on average
     if (is.na(zeroToOneRatio)) zeroToOneRatio = bits;
 
