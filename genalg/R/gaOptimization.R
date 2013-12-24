@@ -2,19 +2,20 @@ require(methods) || stop("Couldn't load package methods")
 
 setClass("gaOptimization",
   representation(
-    population = "population",
+    population = "character",
     iterations = "numeric",
     elitism = "numeric",
     bestEvals = "vector",
     meanEvals = "vector",
-    mutationChance = 0
+    mutationChance = "numeric"
   ),
   prototype(
-    population = NA,
+    population = "population",
     iterations = 0,
     elitism = 0,
     bestEvals = c(),
-    meanEvals = c()
+    meanEvals = c(),
+    mutationChance = 0
   )
 )
 
