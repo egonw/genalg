@@ -1,0 +1,12 @@
+export(
+  gaOptimization,
+  plot.rbga,
+  population,
+  rbga.bin.initialize.random,
+  rbga.bin.mutation.random,
+  rbga.bin.mutation.switchbit,
+  rbga.bin,
+  rbga.mutation.random,
+  rbga,
+  summary.rbga
+)
