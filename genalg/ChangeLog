@@ -1,3 +1,10 @@
+version 0.3.3
+-------------------------------------
+* updated maintainer address
+* removed debian/ from package
+* two bugs solved: calculation of the mutation and when the
+  length(suggestions) == popSize
+
 version 0.1.1
 -------------------------------------
 * now really synchronized docs :(
