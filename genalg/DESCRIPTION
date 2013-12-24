@@ -6,5 +6,5 @@ Author: Egon Willighagen <egon.willighagen@gmail.com>, Frank Schwidom <schwidom@
 Maintainer: Egon Willighagen <egon.willighagen@gmail.com>
 Description: R based genetic algorithm for binary and floating point
   chromosomes.
-License: GPL version 2 or later
+License: GPL (>= 2)
 Packaged: Wed Sep 21 21:47:52 2005; egonw
