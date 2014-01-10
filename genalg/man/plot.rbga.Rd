@@ -15,7 +15,7 @@
   useful to look at correlations between the variable and the evaluation values.
 }
 \usage{
-plot.rbga(x, type="default", breaks=10, ...)
+\method{plot}{rbga}(x, type="default", breaks=10, ...)
 }
 \arguments{
   \item{x}{a rbga object.}

@@ -5,7 +5,7 @@
   Summarizes the genetic algorithm results.
 }
 \usage{
-summary.rbga(object, echo=FALSE, ...)
+\method{summary}{rbga}(object, echo=FALSE, ...)
 }
 \arguments{
   \item{object}{a rbga object.}
