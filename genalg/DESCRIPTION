@@ -8,3 +8,6 @@ Description: R based genetic algorithm for binary and floating point
   chromosomes.
 License: GPL (>= 2)
 Packaged: Wed Sep 21 21:47:52 2005; egonw
+URL: https://github.com/egonw/genalg
+BugReports: https://github.com/egonw/genalg/issues
+
