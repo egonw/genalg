@@ -110,7 +110,7 @@ rbga.bin <- function(
                                 c(parents[1,][1:crossOverPoint], 
                                   parents[2,][(crossOverPoint+1):vars])
                             while (sum(newPopulation[child,]) == 0) {
-                                newPopulation[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
+                                newPopulation[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, replace=TRUE);
                             }
                         }
                     }
