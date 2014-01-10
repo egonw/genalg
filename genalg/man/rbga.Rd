@@ -53,6 +53,7 @@ rbga(stringMin=c(), stringMax=c(),
 }
 \seealso{
   \code{\link{rbga.bin}}
+  \code{\link{plot.rbga}}
 }
 \examples{
 # optimize two values to match pi and sqrt(50)

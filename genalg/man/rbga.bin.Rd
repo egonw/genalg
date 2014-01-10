@@ -54,6 +54,7 @@ rbga.bin(size=10,
 }
 \seealso{
   \code{\link{rbga}}
+  \code{\link{plot.rbga}}
 }
 \examples{
 # a very simplistic optimization
