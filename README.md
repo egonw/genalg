@@ -7,11 +7,22 @@ IMPORTANT: THIS PROJECT NEEDS A NEW MAINTAINER AND A PROPER MAILING LIST.
     
     Egon Willighagen
 
+0.http://blogs.ch.cam.ac.uk/pmr/2009/06/06/the-doctor-who-model-of-open-source/
+
+Mailing list
+------------
+
+http://groups.google.co.uk/d/forum/genalg-discuss
+
+Source code
+-----------
+
 Source code of the genalg CRAN package:
 
   http://cran.r-project.org/web/packages/genalg/
 
+Copyright and License
+---------------------
+
 License: GPL v2 or later.
 
-
-0.http://blogs.ch.cam.ac.uk/pmr/2009/06/06/the-doctor-who-model-of-open-source/
