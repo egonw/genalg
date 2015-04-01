@@ -3,10 +3,9 @@
 \title{R Based Genetic Algorithm 2 (floating point chromosome)}
 \description{
   A second R based genetic algorithm that optimizes, using a user set evaluation
-  function, a set of floats. It is an derivation of rbga with optimizations and 
-  additional features.
-  It takes as input minimum and maximum values for
-  the floats to optimizes. The optimum is the chromosome for which the 
+  function, a set of floats. It is an derivation from function rbga with
+  optimizations and additional features.  It takes as input minimum and maximum 
+  values for the floats to optimizes. The optimum is the chromosome for which the 
   evaluation value is minimal.
   
   It requires a \code{evalFunc} method to be supplied that takes as argument
