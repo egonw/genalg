@@ -22,10 +22,11 @@ rbga2= function (
         stringMdin = c(), stringMax = c(),
         monitorFunc = NULL, evalFunc = NULL,
         showSettings = FALSE, verbose = FALSE,
-        fPerIter= NULL, 
-        elitismDifference= 0.001,
-        fElitismDifferenceTooLow= function( chromCurr, chromNext){ sum( abs( chromCurr - chromNext)) < elitismDifference},
-        dummy= NULL
+        # fPerIter= NULL, 
+        # elitismDifference= 0.001,
+        # fElitismDifferenceTooLow= function( chromCurr, chromNext){ sum( abs( chromCurr - chromNext)) < elitismDifference},
+        fElitismDifferenceTooLow= NULL
+        # dummy= NULL
 ) {
 
     pi2= pi*2
@@ -134,7 +135,7 @@ rbga2= function (
             if (verbose) 
                 cat("Calucating evaluation values... ")
 
-            if( !is.null( fPerIter)) fPerIter( iter)
+            # if( !is.null( fPerIter)) fPerIter( iter)
 
             nas= is.na(evalVals) # 8779f033359e4ca5a9bf763083475a74
             #evalVals[ nas]= as.vector( sapply( as.data.frame( t( population))[ , nas], evalFunc))
