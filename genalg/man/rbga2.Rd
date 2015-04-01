@@ -46,6 +46,7 @@ rbga2(suggestions = NULL,
         the given chromosome}
   \item{showSettings}{if true the settings will be printed to screen. By default False.}
   \item{verbose}{if true the algorithm will be more verbose. By default False.}
+  \item{fElitismDifferenceTooLow}{This parameter defines an function of the form function( chromCurr, chromNext), which is feed pairwise by all neighbourhooded elite-chromosomes (population index 1:2, 2:3, 3:4, and so on) and it returns an logical scalar. If the return value is TRUE then the lower elite-chromosome gets deleted, if the return value is FALSE, the lower elite-chromosome keeps alive. This function avoids effectively, that a lot of elite-chromosomes hold the same data after a while of computation.}
 }
 \section{References}{
   C.B. Lucasius and G. Kateman (1993).
