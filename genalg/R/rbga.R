@@ -63,8 +63,11 @@ rbga <- function(
             }
             if (verbose) cat("Filling others with random values in the given domains...\n");
             for (var in 1:vars) {
+             if( (suggestionCount + 1) < popSize) # correction 1df67b3102d846f6b8ae02b0e5f63454
+             {
                 population[(suggestionCount+1):popSize,var] = stringMin[var] +
                                    runif(popSize-suggestionCount)*(stringMax[var]-stringMin[var]);
+             }
             }
         } else {
             if (verbose) cat("Starting with random values in the given domains...\n");
