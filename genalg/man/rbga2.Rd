@@ -18,13 +18,17 @@
   \code{\link{summary.rbga}}.
 }
 \usage{
-rbga2(stringMin=c(), stringMax=c(),
-     suggestions=NULL,
-     popSize=200, iters=100,
-     mutationChance=NA,
-     elitism=NA,
-     monitorFunc=NULL, evalFunc=NULL,
-     showSettings=FALSE, verbose=FALSE)
+
+rbga2(suggestions = NULL,
+      popSize = 200,
+      iters = 100,
+      mutationChance = NA,
+      elitism = NA,
+      monitorFunc = NULL, evalFunc = NULL,
+      stringMin = c(),
+      stringMax = c(),
+      showSettings = FALSE, verbose = FALSE,
+      fElitismDifferenceTooLow= NULL)
 }
 \arguments{
   \item{stringMin}{vector with minimum values for each gene.}

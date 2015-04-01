@@ -17,15 +17,14 @@
 }
 \usage{
 
-rbga <- function(
-        suggestions=NULL,
-        popSize=200, iters=100,
-        mutationChance=NA,
-        elitism=NA,
-        monitorFunc=NULL, evalFunc=NULL,
-        stringMin=c(),
-        stringMax=c(),
-        showSettings=FALSE, verbose=FALSE)
+rbga(suggestions=NULL,
+     popSize=200, iters=100,
+     mutationChance=NA,
+     elitism=NA,
+     monitorFunc=NULL, evalFunc=NULL,
+     stringMin=c(),
+     stringMax=c(),
+     showSettings=FALSE, verbose=FALSE)
 }
 \arguments{
   \item{stringMin}{vector with minimum values for each gene.}
