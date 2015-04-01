@@ -8,5 +8,6 @@ export(
   rbga.bin,
   rbga.mutation.random,
   rbga,
+  rbga2,
   summary.rbga
 )
