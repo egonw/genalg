@@ -174,7 +174,8 @@ rbga <- function(
                                 # mutate around solution
                                 dempeningFactor = (iters-iter)/iters
                                 direction       = sample(c(-1,1),1)
-                                mutationVal     = stringMax[var]-stringMin[var]*0.67
+                                # mutationVal     = stringMax[var]-stringMin[var]*0.67
+                                mutationVal     = ( stringMax[var]-stringMin[var]) *0.67 # correction ? 1df67b3102d846f6b8ae02b0e5f63454
                                 mutation = population[object,var] + 
                                            direction*mutationVal*dempeningFactor
                                 # but in domain. if not, then take random
