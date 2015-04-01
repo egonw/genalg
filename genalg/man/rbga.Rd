@@ -16,13 +16,16 @@
   \code{\link{summary.rbga}}.
 }
 \usage{
-rbga(stringMin=c(), stringMax=c(),
-     suggestions=NULL,
-     popSize=200, iters=100,
-     mutationChance=NA,
-     elitism=NA,
-     monitorFunc=NULL, evalFunc=NULL,
-     showSettings=FALSE, verbose=FALSE)
+
+rbga <- function(
+        suggestions=NULL,
+        popSize=200, iters=100,
+        mutationChance=NA,
+        elitism=NA,
+        monitorFunc=NULL, evalFunc=NULL,
+        stringMin=c(),
+        stringMax=c(),
+        showSettings=FALSE, verbose=FALSE)
 }
 \arguments{
   \item{stringMin}{vector with minimum values for each gene.}
@@ -74,7 +77,7 @@ monitor <- function(obj) {
     plot(obj$population, xlim=xlim, ylim=ylim, xlab="pi", ylab="sqrt(50)");
 }
 
-rbga.results = rbga(c(1, 1), c(5, 10), monitorFunc=monitor, 
+rbga.results = rbga( stringMin= c(1, 1), stringMax= c(5, 10), monitorFunc=monitor, 
     evalFunc=evaluate, verbose=TRUE, mutationChance=0.01)
 
 plot(rbga.results)
