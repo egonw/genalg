@@ -81,8 +81,12 @@ monitor <- function(obj) {
     plot(obj$population, xlim=xlim, ylim=ylim, xlab="pi", ylab="sqrt(50)");
 }
 
-rbga.results = rbga(c(1, 1), c(5, 10), monitorFunc=monitor, 
-    evalFunc=evaluate, verbose=TRUE, mutationChance=0.01)
+rbga.results = rbga2( stringMin= c(1, 1), stringMax= c(5, 10), monitorFunc=monitor, 
+
+    evalFunc=evaluate, verbose=TRUE, mutationChance=0.01,
+
+    fElitismDifferenceTooLow= function( chromCurr, chromNext){ sum( abs( chromCurr - chromNext)) < 1e-3}
+)
 
 plot(rbga.results)
 plot(rbga.results, type="hist")
