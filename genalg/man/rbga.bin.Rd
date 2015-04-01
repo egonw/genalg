@@ -15,13 +15,15 @@
   \code{\link{summary.rbga}}.
 }
 \usage{
-rbga.bin(size=10,
-         suggestions=NULL,
-         popSize=200, iters=100, 
-         mutationChance=NA,
-         elitism=NA, zeroToOneRatio=10,
-         monitorFunc=NULL, evalFunc=NULL,
-         showSettings=FALSE, verbose=FALSE)
+rbga.bin(suggestions = NULL,
+         popSize = 200, iters = 100,
+         mutationChance = NA, 
+         elitism = NA,
+         monitorFunc = NULL, evalFunc = NULL,
+         size = 10, 
+         zeroToOneRatio = 10,
+         showSettings = FALSE,
+         verbose = FALSE)
 }
 \arguments{
   \item{size}{the number of genes in the chromosome.}
