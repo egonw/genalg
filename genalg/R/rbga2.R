@@ -67,6 +67,11 @@ rbga2 <- function (
     if (length(stringMin) != length(stringMax)) {
         stop("The vectors stringMin and stringMax must be of equal length.")
     }
+
+    if( ! is.null( suggestions)){
+     stopifnot( ncol( suggestions) == length(stringMin))
+    }
+
     if (popSize < 5) {
         stop("The population size must be at least 5.")
     }
