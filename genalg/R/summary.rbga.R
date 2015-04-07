@@ -39,12 +39,11 @@ summary.rbga <- function(object, echo=FALSE, ...) {
         optionPart = paste("GA Results", "\n", "  Best Solution : ", sep="");
         # ok, deal with the situation that more than one object is best
         filter = rbga.object$evaluations == min(rbga.object$evaluations);
-        bestObjectCount = sum(rep(1, rbga.object$popSize)[filter]);
-        if (bestObjectCount > 1) {
-            bestSolution = rbga.object$population[filter,][1,];
-        } else {
-            bestSolution = rbga.object$population[filter,];
-        }
+
+        bestSolution = rbga.object$population[filter, , drop= FALSE][1,];  
+         # drop= FALSE: needed if one dimension is 1 (vars)
+         # this statement takes all cases
+
         for (var in 1:length(bestSolution)) {
             optionPart = paste(optionPart,
                 bestSolution[var], " ",
