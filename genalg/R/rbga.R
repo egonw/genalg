@@ -33,6 +33,7 @@ rbga <- function(
     }
 
     if( ! is.null( suggestions)){
+     stopifnot( 2 == length( dim( suggestions)))
      stopifnot( ncol( suggestions) == length(stringMin))
     }
 
