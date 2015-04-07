@@ -299,7 +299,7 @@ rbga2 <- function (
                 else {
                   if (verbose) 
                     cat("  cannot crossover (#vars=1), using new randoms...\n")
-                  print( "flag") # does it function?
+                  # print( "flag") # does it function? yes
                   newPopulation[ popSizeProlRange, ] =
                    sortedPopulation[ sample(1:popSize, popSizeProl), ]
                 }
