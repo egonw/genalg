@@ -57,9 +57,9 @@ rbga.bin <- function(size=10,
             }
             if (verbose) cat("Filling others with random values in the given domains...\n");
             for (child in (suggestionCount+1):popSize) {
-                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
+                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, replace=TRUE);
                 while (sum(population[child,]) == 0) {
-                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
+                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, replace=TRUE);
                 }
             }
         } else {
@@ -68,9 +68,9 @@ rbga.bin <- function(size=10,
             population = matrix(nrow=popSize, ncol=vars);
             # fill values
             for (child in 1:popSize) {
-                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
+                population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, replace=TRUE);
                 while (sum(population[child,]) == 0) {
-                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
+                    population[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, replace=TRUE);
                 }
             }
         }
@@ -142,7 +142,7 @@ rbga.bin <- function(size=10,
                                 c(parents[1,][1:crossOverPoint], 
                                   parents[2,][(crossOverPoint+1):vars])
                             while (sum(newPopulation[child,]) == 0) {
-                                newPopulation[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, rep=TRUE);
+                                newPopulation[child,] = sample(c(rep(0,zeroToOneRatio),1), vars, replace=TRUE);
                             }
                         }
                     }
