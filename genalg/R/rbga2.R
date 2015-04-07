@@ -194,7 +194,7 @@ rbga2 <- function (
             if (verbose) 
               cat("  sorting results...\n")
             sortedEvaluations = sort(evalVals, index= TRUE) 
-            sortedPopulation = population[ sortedEvaluations$ix, ]
+            sortedPopulation = population[ sortedEvaluations$ix, , drop=FALSE]
 
             }
 
@@ -248,8 +248,7 @@ rbga2 <- function (
                 if (elitism > 0) {
                   if (verbose) 
                     cat("  applying elitism...\n")
-                  newPopulation[1:elitism, ] = sortedPopulation[1:elitism, 
-                    ]
+                  newPopulation[1:elitism, ] = sortedPopulation[1:elitism, ]
                   newEvalVals[1:elitism] = sortedEvaluations$x[1:elitism]
                 }
                 if (vars > 1) {
