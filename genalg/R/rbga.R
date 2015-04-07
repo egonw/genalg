@@ -11,7 +11,8 @@ rbga <- function(
         mutationChance=NA,
         elitism=NA,
         monitorFunc=NULL, evalFunc=NULL,
-        showSettings=FALSE, verbose=FALSE
+        showSettings=FALSE, verbose=FALSE,
+        parentProb= NULL
 ) {
     if (is.null(evalFunc)) {
         stop("A evaluation function must be provided. See the evalFunc parameter.");
@@ -132,7 +133,7 @@ rbga <- function(
                     if (verbose) cat("  applying crossover...\n");
                     for (child in (elitism+1):popSize) {
                         # ok, pick two random parents
-                        parentIDs = sample(1:popSize, 2)
+                        parentIDs = sample(1:popSize, 2, prob= parentProb)
                         parents = sortedPopulation[parentIDs,];
                         crossOverPoint = sample(0:vars,1);
                         if (crossOverPoint == 0) {

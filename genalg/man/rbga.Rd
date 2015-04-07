@@ -22,7 +22,8 @@ rbga(stringMin=c(), stringMax=c(),
      mutationChance=NA,
      elitism=NA,
      monitorFunc=NULL, evalFunc=NULL,
-     showSettings=FALSE, verbose=FALSE)
+     showSettings=FALSE, verbose=FALSE,
+     parentProb= NULL)
 }
 \arguments{
   \item{stringMin}{vector with minimum values for each gene.}
@@ -41,6 +42,7 @@ rbga(stringMin=c(), stringMax=c(),
         the given chromosome}
   \item{showSettings}{if true the settings will be printed to screen. By default False.}
   \item{verbose}{if true the algorithm will be more verbose. By default False.}
+  \item{parentProb}{parentProb defines the probability for every population-position, to get crossed over. It can be instantiated for instance with parentProb= dnorm(1:popSize, mean=0, sd=(popSize/3)). If it is NULL, the probability for all chromosomes, to get crossed, is the same (faster).}
 }
 \section{References}{
   C.B. Lucasius and G. Kateman (1993).

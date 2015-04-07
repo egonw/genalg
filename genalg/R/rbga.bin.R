@@ -4,13 +4,16 @@
 # popSize          = the population size
 # iters            = number of generations
 # mutationChance   = chance that a var in the string gets mutated
-rbga.bin <- function(size=10,
-                     suggestions=NULL,
-                     popSize=200, iters=100, 
-                     mutationChance=NA,
-                     elitism=NA, zeroToOneRatio=10,
-                     monitorFunc=NULL, evalFunc=NULL,
-                     showSettings=FALSE, verbose=FALSE) {
+rbga.bin <- function(
+            size=10,
+            suggestions=NULL,
+            popSize=200, iters=100, 
+            mutationChance=NA,
+            elitism=NA, zeroToOneRatio=10,
+            monitorFunc=NULL, evalFunc=NULL,
+            showSettings=FALSE, verbose=FALSE,
+            parentProb= dnorm(1:popSize, mean=0, sd=(popSize/3))
+) {
     if (is.null(evalFunc)) {
         stop("A evaluation function must be provided. See the evalFunc parameter.");
     }
@@ -127,8 +130,7 @@ rbga.bin <- function(size=10,
                     if (verbose) cat("  applying crossover...\n");
                     for (child in (elitism+1):popSize) {
                         # ok, pick two random parents
-                        parentProb = dnorm(1:popSize, mean=0, sd=(popSize/3))
-                        parentIDs = sample(1:popSize, 2, prob=parentProb)
+                        parentIDs = sample(1:popSize, 2, prob= parentProb)
                         parents = sortedPopulation[parentIDs,];
                         crossOverPoint = sample(0:vars,1);
                         if (crossOverPoint == 0) {

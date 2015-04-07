@@ -25,7 +25,8 @@ rbga2(stringMin=c(), stringMax=c(),
      elitism=NA,
      monitorFunc=NULL, evalFunc=NULL,
      showSettings=FALSE, verbose=FALSE,
-     fElitismDifferenceTooLow= NULL)
+     fElitismDifferenceTooLow= NULL,
+     parentProb= NULL)
 }
 \arguments{
   \item{stringMin}{vector with minimum values for each gene.}
@@ -45,6 +46,7 @@ rbga2(stringMin=c(), stringMax=c(),
   \item{showSettings}{if true the settings will be printed to screen. By default False.}
   \item{verbose}{if true the algorithm will be more verbose. By default False.}
   \item{fElitismDifferenceTooLow}{This parameter defines an function of the form function( chromCurr, chromNext), which is feed pairwise by all neighbourhooded elite-chromosomes (population index 1:2, 2:3, 3:4, and so on) and it returns an logical scalar. If the return value is TRUE then the lower elite-chromosome gets deleted, if the return value is FALSE, the lower elite-chromosome keeps alive. This function avoids effectively, that a lot of elite-chromosomes hold the same data after a while of computation.}
+  \item{parentProb}{parentProb defines the probability for every population-position, to get crossed over. It can be instantiated for instance with parentProb= dnorm(1:popSize, mean=0, sd=(popSize/3)). If it is NULL, the probability for all chromosomes, to get crossed, is the same (faster).}
 }
 \section{References}{
   C.B. Lucasius and G. Kateman (1993).

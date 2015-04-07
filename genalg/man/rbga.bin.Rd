@@ -21,7 +21,9 @@ rbga.bin(size=10,
          mutationChance=NA,
          elitism=NA, zeroToOneRatio=10,
          monitorFunc=NULL, evalFunc=NULL,
-         showSettings=FALSE, verbose=FALSE)
+         showSettings=FALSE, verbose=FALSE,
+         parentProb= dnorm(1:popSize, mean=0, sd=(popSize/3))
+        )
 }
 \arguments{
   \item{size}{the number of genes in the chromosome.}
@@ -42,6 +44,7 @@ rbga.bin(size=10,
   \item{showSettings}{if true the settings will be printed to screen. By default False.}
   \item{verbose}{if true the algorithm will be more verbose. By default False.}
   \item{suggestions}{optional list of suggested chromosomes}
+  \item{parentProb}{parentProb defines the probability for every population-position, to get crossed over. If it is NULL, the probability for all chromosomes, to get crossed, is the same (faster).}
 }
 \section{References}{
   C.B. Lucasius and G. Kateman (1993).

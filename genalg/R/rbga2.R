@@ -24,7 +24,8 @@ rbga2 <- function (
         # fPerIter= NULL, 
         # elitismDifference= 0.001,
         # fElitismDifferenceTooLow= function( chromCurr, chromNext){ sum( abs( chromCurr - chromNext)) < elitismDifference},
-        fElitismDifferenceTooLow= NULL
+        fElitismDifferenceTooLow= NULL,
+        parentProb= NULL
         # dummy= NULL
 ) {
 
@@ -249,7 +250,7 @@ rbga2 <- function (
                   if (verbose) 
                     cat("  applying crossover...\n")
                   for (child in popSizeProlRange) {
-                    parentIDs = sample(1:popSize, 2)
+                    parentIDs = sample(1:popSize, 2, prob= parentProb)
                     parents = sortedPopulation[parentIDs, ]
 
                     #crossOverPoint = sample(0:vars, 1)
