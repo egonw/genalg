@@ -14,15 +14,13 @@
 # 1df67b3102d846f6b8ae02b0e5f63454 2 bugs solved: berechnung der mutation und wenn length( suggestions) == popSize
 
 rbga2 <- function (
-        suggestions = NULL,
-        popSize = 200,
-        iters = 100,
-        mutationChance = NA,
-        elitism = NA, 
-        monitorFunc = NULL, evalFunc = NULL,
-        stringMin = c(),
-        stringMax = c(),
-        showSettings = FALSE, verbose = FALSE,
+        stringMin=c(), stringMax=c(),
+        suggestions=NULL,
+        popSize=200, iters=100, 
+        mutationChance=NA,
+        elitism=NA,
+        monitorFunc=NULL, evalFunc=NULL,
+        showSettings=FALSE, verbose=FALSE,
         # fPerIter= NULL, 
         # elitismDifference= 0.001,
         # fElitismDifferenceTooLow= function( chromCurr, chromNext){ sum( abs( chromCurr - chromNext)) < elitismDifference},

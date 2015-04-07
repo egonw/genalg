@@ -5,13 +5,12 @@
 # iters            = number of generations
 # mutationChance   = chance that a var in the string gets mutated
 rbga <- function(
+        stringMin=c(), stringMax=c(),
         suggestions=NULL,
         popSize=200, iters=100, 
         mutationChance=NA,
         elitism=NA,
         monitorFunc=NULL, evalFunc=NULL,
-        stringMin=c(),
-        stringMax=c(),
         showSettings=FALSE, verbose=FALSE
 ) {
     if (is.null(evalFunc)) {

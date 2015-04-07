@@ -16,14 +16,12 @@
   \code{\link{summary.rbga}}.
 }
 \usage{
-
-rbga(suggestions=NULL,
+rbga(stringMin=c(), stringMax=c(),
+     suggestions=NULL,
      popSize=200, iters=100,
      mutationChance=NA,
      elitism=NA,
      monitorFunc=NULL, evalFunc=NULL,
-     stringMin=c(),
-     stringMax=c(),
      showSettings=FALSE, verbose=FALSE)
 }
 \arguments{
