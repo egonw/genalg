@@ -88,10 +88,8 @@ rbga.bin <- function(
             # calculate each object
             if (verbose) cat("Calucating evaluation values... ");
             for (object in 1:popSize) {
-                if (is.na(evalVals[object])) {
                     evalVals[object] = evalFunc(population[object,]);
                     if (verbose) cat(".");
-                }
             }
             bestEvals[iter] = min(evalVals);
             meanEvals[iter] = mean(evalVals);
